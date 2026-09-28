@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReliefCamp Command Center</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">RC</div>
+            <div>
+                <h2>ReliefCamp</h2>
+                <span>COMMAND CENTER</span>
+            </div>
+        </div>
+
+        <nav>
+            <button class="nav-item active" data-section="overview">
+                <span>⌂</span> Overview
+            </button>
+
+            <button class="nav-item" data-section="camps">
+                <span>⌂</span> Camps
+            </button>
+
+            <button class="nav-item" data-section="inventory">
+                <span>▣</span> Inventory
+            </button>
+
+            <button class="nav-item" data-section="families">
+                <span>♙</span> Families
+            </button>
+
+            <button class="nav-item" data-section="distribution">
+                <span>⇄</span> Distribution
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="system-status">
+                <span class="status-dot"></span>
+                <div>
+                    <b>System Online</b>
+                    <small>All services operational</small>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div>
+                <div class="eyebrow">DISASTER RESPONSE NETWORK</div>
+                <h1 id="pageTitle">Command Overview</h1>
+            </div>
+
+            <div class="top-actions">
+
+                <!-- CAMP SELECTOR -->
+                <div class="camp-selector">
+                    <span>ACTIVE CAMP</span>
+                    <select id="campSelector">
+                        <option value="">Loading camps...</option>
+                    </select>
+                </div>
+
+                <div class="live-clock">
+                    <span class="live-dot"></span>
+                    LIVE
+                    <strong id="clock">--:--</strong>
+                </div>
+
+                <div class="emergency-status">
+                    <span>●</span>
+                    <b id="systemStatusText">NORMAL OPERATIONS</b>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ========================= -->
+        <!-- OVERVIEW -->
+        <!-- ========================= -->
+
+        <section id="overview" class="section active">
+
+            <div class="hero">
+
+                <div>
+                    <div class="hero-label">ACTIVE RELIEF OPERATION</div>
+
+                    <h2 id="campName">Loading Camp...</h2>
+
+                    <p id="campLocation">
+                        Loading location...
+                    </p>
+
+                    <div class="hero-meta">
+                        <span class="hero-chip">
+                            ● CAMP ID <b id="activeCampId">--</b>
+                        </span>
+
+                        <span class="hero-chip">
+                            STATUS <b id="heroCampStatus">OPERATIONAL</b>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="hero-right">
+                    <span>AVAILABLE CAPACITY</span>
+                    <strong id="available">--</strong>
+                    <small>people</small>
+                </div>
+
+            </div>
+
+
+            <!-- STATISTICS -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">⌂</div>
+                    <div>
+                        <span>ACTIVE CAMPS</span>
+                        <strong id="totalCamps">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">♙</div>
+                    <div>
+                        <span>FAMILIES</span>
+                        <strong id="familyCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon cyan">👥</div>
+                    <div>
+                        <span>PEOPLE HOUSED</span>
+                        <strong id="totalPeople">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">✓</div>
+                    <div>
+                        <span>AVAILABLE SPACE</span>
+                        <strong id="availableStat">0</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- DASHBOARD GRID -->
+
+            <div class="dashboard-grid">
+
+                <!-- CAPACITY -->
+
+                <div class="panel capacity-panel">
+
+                    <div class="panel-head">
+
+                        <div>
+                            <span class="panel-kicker">
+                                CAMP CAPACITY
+                            </span>
+
+                            <h3>Occupancy Monitor</h3>
+                        </div>
+
+                        <span class="badge green-badge">
+                            LIVE
+                        </span>
+
+                    </div>
+
+
+                    <div class="capacity-content">
+
+                        <div class="ring" id="capacityRing">
+
+                            <div>
+                                <strong id="occupancyPercent">
+                                    0%
+                                </strong>
+
+                                <span>
+                                    occupied
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="capacity-details">
+
+                            <div>
+                                <span>Current Occupancy</span>
+                                <b id="occupancy">0 / 0</b>
+                            </div>
+
+                            <div>
+                                <span>Available Capacity</span>
+                                <b id="availableCapacity">0</b>
+                            </div>
+
+                            <div>
+                                <span>Camp Status</span>
+                                <b id="campStatus" class="text-green">
+                                    OPERATIONAL
+                                </b>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- INVENTORY -->
+
+                <div class="panel">
+
+                    <div class="panel-head">
+
+                        <div>
+                            <span class="panel-kicker">
+                                RESOURCE STATUS
+                            </span>
+
+                            <h3>Inventory Monitor</h3>
+                        </div>
+
+                        <span class="badge blue-badge">
+                            LIVE STOCK
+                        </span>
+
+                    </div>
+
+                    <div id="inventoryBars" class="inventory-bars">
+                        Loading...
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESOURCE CARDS -->
+
+            <div class="resource-grid">
+
+                <div class="resource-card">
+
+                    <div class="resource-top">
+                        <span class="resource-symbol"></span>
+
+                        <span id="foodAlert"
+                              class="stock-badge normal">
+                            NORMAL
+                        </span>
+                    </div>
+
+                    <span>FOOD STOCK</span>
+
+                    <strong id="foodStock">0</strong>
+
+                    <small>units available</small>
+
+                </div>
+
+
+                <div class="resource-card">
+
+                    <div class="resource-top">
+                        <span class="resource-symbol"></span>
+
+                        <span id="waterAlert"
+                              class="stock-badge normal">
+                            NORMAL
+                        </span>
+                    </div>
+
+                    <span>WATER STOCK</span>
+
+                    <strong id="waterStock">0</strong>
+
+                    <small>units available</small>
+
+                </div>
+
+
+                <div class="resource-card">
+
+                    <div class="resource-top">
+                        <span class="resource-symbol"></span>
+
+                        <span id="blanketAlert"
+                              class="stock-badge normal">
+                            NORMAL
+                        </span>
+                    </div>
+
+                    <span>BLANKETS</span>
+
+                    <strong id="blanketStock">0</strong>
+
+                    <small>units available</small>
+
+                </div>
+
+
+                <div class="resource-card">
+
+                    <div class="resource-top">
+                        <span class="resource-symbol"></span>
+
+                        <span class="stock-badge normal">
+                            TRACKED
+                        </span>
+                    </div>
+
+                    <span>TOTAL RESOURCES</span>
+
+                    <strong id="totalStock">0</strong>
+
+                    <small>units across inventory</small>
+
+                </div>
+
+            </div>
+
+
+            <!-- OPERATIONS -->
+
+            <div class="panel">
+
+                <div class="panel-head">
+
+                    <div>
+                        <span class="panel-kicker">
+                            OPERATIONS
+                        </span>
+
+                        <h3>Recent Activity</h3>
+                    </div>
+
+                    <span class="badge blue-badge">
+                        SESSION LOG
+                    </span>
+
+                </div>
+
+                <div id="activityList"
+                     class="activity-list">
+
+                    <div class="activity-empty">
+                        <span>◷</span>
+
+                        <div>
+                            <b>System monitoring active</b>
+
+                            <small>
+                                Live camp data is being monitored.
+                            </small>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- CAMPS -->
+        <!-- ========================= -->
+
+        <section id="camps" class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <span class="panel-kicker">
+                        OPERATIONS
+                    </span>
+
+                    <h2>Relief Camps</h2>
+
+                    <p>
+                        Register and monitor emergency accommodation centers.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="content-grid">
+
+                <div class="panel">
+
+                    <div class="panel-head">
+                        <h3>Register New Camp</h3>
+                    </div>
+
+                    <form id="campForm">
+
+                        <label>Camp Name</label>
+
+                        <input id="campNameInput"
+                               required
+                               placeholder="Example: Chennai Relief Camp">
+
+
+                        <label>Location</label>
+
+                        <input id="campLocationInput"
+                               required
+                               placeholder="Example: Chennai">
+
+
+                        <label>Maximum Capacity</label>
+
+                        <input id="campCapacityInput"
+                               type="number"
+                               min="1"
+                               required
+                               placeholder="100">
+
+
+                        <button class="primary-btn">
+                            Register Camp
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-head">
+
+                        <h3>Registered Camps</h3>
+
+                        <span class="badge blue-badge">
+                            <span id="campListCount">0</span> CAMPS
+                        </span>
+
+                    </div>
+
+                    <div id="campList"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- INVENTORY -->
+        <!-- ========================= -->
+
+        <section id="inventory" class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <span class="panel-kicker">
+                        RESOURCE MANAGEMENT
+                    </span>
+
+                    <h2>Inventory Control</h2>
+
+                    <p>
+                        Monitor and add essential relief resources.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="content-grid">
+
+                <div class="panel">
+
+                    <div class="panel-head">
+                        <h3>Add Incoming Supply</h3>
+                    </div>
+
+                    <form id="supplyForm">
+
+                        <label>Supply Type</label>
+
+                        <select id="supplyType" required>
+
+                            <option value="">
+                                Select supply
+                            </option>
+
+                            <option value="Food">
+                                Food
+                            </option>
+
+                            <option value="Water">
+                                Water
+                            </option>
+
+                            <option value="Blankets">
+                                Blankets
+                            </option>
+
+                        </select>
+
+
+                        <label>Quantity</label>
+
+                        <input id="supplyQuantity"
+                               type="number"
+                               min="1"
+                               required
+                               placeholder="Enter quantity">
+
+
+                        <button class="primary-btn">
+                            Add Supply
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-head">
+
+                        <h3>Current Inventory</h3>
+
+                        <span class="badge blue-badge">
+                            LIVE
+                        </span>
+
+                    </div>
+
+                    <div id="inventoryList"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- FAMILIES -->
+        <!-- ========================= -->
+
+        <section id="families" class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <span class="panel-kicker">
+                        CAMP RESIDENTS
+                    </span>
+
+                    <h2>Family Registry</h2>
+
+                    <p>
+                        Register families entering the relief camp.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="content-grid">
+
+                <div class="panel">
+
+                    <div class="panel-head">
+                        <h3>Register Family</h3>
+                    </div>
+
+                    <form id="familyForm">
+
+                        <label>Family Name</label>
+
+                        <input id="familyNameInput"
+                               required
+                               placeholder="Example: Kumar Family">
+
+
+                        <label>Number of People</label>
+
+                        <input id="familyHeadcountInput"
+                               type="number"
+                               min="1"
+                               required
+                               placeholder="4">
+
+
+                        <button class="primary-btn">
+                            Register Family
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-head">
+
+                        <h3>Families Currently Housed</h3>
+
+                        <span class="badge purple-badge">
+                            <span id="familyCount2">0</span>
+                            FAMILIES
+                        </span>
+
+                    </div>
+
+                    <div id="familyList"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- DISTRIBUTION -->
+        <!-- ========================= -->
+
+        <section id="distribution" class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <span class="panel-kicker">
+                        RESOURCE DISPATCH
+                    </span>
+
+                    <h2>Supply Distribution</h2>
+
+                    <p>
+                        Allocate available resources to registered families.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="distribution-layout">
+
+                <div class="panel distribution-panel">
+
+                    <div class="distribution-title">
+
+                        <div class="dispatch-icon">
+                            ⇄
+                        </div>
+
+                        <div>
+                            <span class="panel-kicker">
+                                NEW DISPATCH
+                            </span>
+
+                            <h3>Create Distribution</h3>
+                        </div>
+
+                    </div>
+
+
+                    <form id="distributionForm">
+
+                        <label>Receiving Family</label>
+
+                        <select id="familySelect" required>
+                            <option value="">
+                                Select family
+                            </option>
+                        </select>
+
+
+                        <label>Resource</label>
+
+                        <select id="supplySelect" required>
+                            <option value="">
+                                Select supply
+                            </option>
+                        </select>
+
+
+                        <label>Quantity</label>
+
+                        <input id="distributionQuantity"
+                               type="number"
+                               min="1"
+                               required
+                               placeholder="Enter quantity">
+
+
+                        <div id="distributionPreview"
+                             class="dispatch-preview">
+
+                            <span>●</span>
+
+                            <div>
+                                <b>READY FOR DISPATCH</b>
+
+                                <small>
+                                    Select a family, resource and quantity.
+                                </small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="dispatch-note">
+
+                            <span>ⓘ</span>
+
+                            <p>
+                                Distribution is limited to the
+                                available inventory.
+                            </p>
+
+                        </div>
+
+
+                        <button class="primary-btn dispatch-btn">
+                            Confirm Distribution
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <div class="panel distribution-info">
+
+                    <span class="panel-kicker">
+                        RESOURCE CONTROL
+                    </span>
+
+                    <h3>Distribution Protocol</h3>
+
+
+                    <div class="protocol">
+
+                        <div>
+                            <span>01</span>
+                            <p>Select receiving family</p>
+                        </div>
+
+                        <div>
+                            <span>02</span>
+                            <p>Select available resource</p>
+                        </div>
+
+                        <div>
+                            <span>03</span>
+                            <p>Enter required quantity</p>
+                        </div>
+
+                        <div>
+                            <span>04</span>
+                            <p>System validates available stock</p>
+                        </div>
+
+                        <div>
+                            <span>05</span>
+                            <p>Confirm resource dispatch</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
